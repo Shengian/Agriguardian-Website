@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgriGuardian Employee Portal — sign in to access HR resources, tasks, and internal tools.">
+  <title>Employee Login | Agriguardian Pvt Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="portal-page">
+
+  <header class="header header--portal scrolled" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo" data-website-home>
+        <img src="assets/logo.png" alt="Agriguardian Logo" class="nav__logo-img">
+        <span class="nav__logo-text">Agriguardian <small>Pvt Ltd</small></span>
+      </a>
+      <a href="index.html" class="nav__back" data-website-home>Back to Website</a>
+    </nav>
+  </header>
+
+  <main class="portal-login">
+    <div class="portal-login__grid">
+      <div class="portal-login__info">
+        <span class="portal-login__badge">Internal Access</span>
+        <h1>Employee Portal</h1>
+        <p>Sign in to access your dashboard, HR documents, assigned tasks, company announcements, and internal resources.</p>
+        <ul class="portal-login__features">
+          <li>Attendance & timesheet management</li>
+          <li>Task assignments & project updates</li>
+          <li>HR documents & payslips</li>
+          <li>Company announcements</li>
+          <li>Leave requests & profile settings</li>
+        </ul>
+        <p class="portal-login__note">For technical support, contact <a href="mailto:hr@agriguardian.com">hr@agriguardian.com</a></p>
+      </div>
+
+      <div class="portal-login__card">
+        <div class="portal-login__card-header">
+          <div class="portal-login__card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h2>Sign In</h2>
+          <p>Enter your employee credentials</p>
+        </div>
+
+        <form class="portal-login__form" id="employeeLoginForm" data-platform-role="employee">
+          <div class="form__group">
+            <label for="employeeId">Employee ID / Email</label>
+            <input type="text" id="employeeId" name="employeeId" placeholder="EMP-001 or name@agriguardian.com" required>
+          </div>
+          <div class="form__group">
+            <label for="employeePassword">Password</label>
+            <input type="password" id="employeePassword" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="portal-login__options">
+            <label class="portal-login__remember">
+              <input type="checkbox" name="remember"> Remember me
+            </label>
+            <a href="#" class="portal-login__forgot">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Sign In</button>
+          <p class="form__success" id="loginSuccess">Login successful! Redirecting to dashboard...</p>
+        </form>
+
+        <div class="portal-login__switch">
+          <p>Are you a farm owner or client? <a href="employer-login.html">Sign in to Employer Portal</a></p>
+          <p>Need another portal? <a href="portals.html">View all portals</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer--minimal">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Agriguardian Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

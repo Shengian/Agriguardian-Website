@@ -1,0 +1,16 @@
+{
+  "name": "agriguardian-platform",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:platform\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:platform": "npm run dev --prefix platform",
+    "dev:website": "npx --yes serve -l 8080 .",
+    "build": "npm run build --prefix platform",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

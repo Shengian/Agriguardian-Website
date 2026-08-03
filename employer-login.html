@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgriGuardian Employer Portal — farm owners and clients sign in to view crop monitoring dashboards and reports.">
+  <title>Employer / Client Login | Agriguardian Pvt Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="portal-page">
+
+  <header class="header header--portal scrolled" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo" data-website-home>
+        <img src="assets/logo.png" alt="Agriguardian Logo" class="nav__logo-img">
+        <span class="nav__logo-text">Agriguardian <small>Pvt Ltd</small></span>
+      </a>
+      <a href="index.html" class="nav__back" data-website-home>Back to Website</a>
+    </nav>
+  </header>
+
+  <main class="portal-login">
+    <div class="portal-login__grid">
+      <div class="portal-login__info">
+        <span class="portal-login__badge portal-login__badge--client">Client Access</span>
+        <h1>Employer / Client Portal</h1>
+        <p>Sign in to view your plantation's crop health data, soil analytics, disease alerts, and monitoring dashboards — all in one place.</p>
+        <ul class="portal-login__features">
+          <li>Real-time crop health dashboard</li>
+          <li>AI disease detection reports</li>
+          <li>Soil moisture & environmental data</li>
+          <li>Alert history & treatment logs</li>
+          <li>Account & deployment management</li>
+        </ul>
+        <p class="portal-login__note">New client? <a href="index.html#contact">Request a demo</a> or contact <a href="mailto:support@agriguardian.com">support@agriguardian.com</a></p>
+      </div>
+
+      <div class="portal-login__card portal-login__card--featured">
+        <div class="portal-login__card-header">
+          <div class="portal-login__card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>
+          </div>
+          <h2>Client Sign In</h2>
+          <p>Access your plantation monitoring dashboard</p>
+        </div>
+
+        <form class="portal-login__form" id="employerLoginForm">
+          <div class="form__group">
+            <label for="clientEmail">Email Address</label>
+            <input type="email" id="clientEmail" name="email" placeholder="owner@yourfarm.com" required>
+          </div>
+          <div class="form__group">
+            <label for="clientPassword">Password</label>
+            <input type="password" id="clientPassword" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="portal-login__options">
+            <label class="portal-login__remember">
+              <input type="checkbox" name="remember"> Remember me
+            </label>
+            <a href="#" class="portal-login__forgot">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Sign In to Dashboard</button>
+          <p class="form__success" id="loginSuccess">Login successful! Redirecting to your dashboard...</p>
+        </form>
+
+        <div class="portal-login__switch">
+          <p>Agriguardian employee? <a href="employee-login.html">Sign in to Employee Portal</a></p>
+          <p>Need another portal? <a href="portals.html">View all portals</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer--minimal">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Agriguardian Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

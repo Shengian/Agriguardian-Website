@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgriGuardian Intern Portal — interns can sign in to view assigned work, deadlines, and submit reports or documents.">
+  <title>Intern Login | Agriguardian Pvt Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="portal-page">
+
+  <header class="header header--portal scrolled" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo" data-website-home>
+        <img src="assets/logo.png" alt="Agriguardian Logo" class="nav__logo-img">
+        <span class="nav__logo-text">Agriguardian <small>Pvt Ltd</small></span>
+      </a>
+      <a href="index.html" class="nav__back" data-website-home>Back to Website</a>
+    </nav>
+  </header>
+
+  <main class="portal-login">
+    <div class="portal-login__grid">
+      <div class="portal-login__info">
+        <span class="portal-login__badge">Intern Access</span>
+        <h1>Intern Portal</h1>
+        <p>Sign in with your intern email and password to open your assigned task sheet, mark attendance, and submit reports or supporting documents.</p>
+        <ul class="portal-login__features">
+          <li>Assigned daily and weekly task sheet</li>
+          <li>Project mentor and reporting details</li>
+          <li>Document and report submission</li>
+          <li>Daily attendance marking</li>
+          <li>Announcement and review reminders</li>
+        </ul>
+        <p class="portal-login__note">Need access? Contact <a href="mailto:interns@agriguardian.com">interns@agriguardian.com</a> or your reporting mentor.</p>
+      </div>
+
+      <div class="portal-login__card portal-login__card--featured">
+        <div class="portal-login__card-header">
+          <div class="portal-login__card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M7 12v5c0 1.5 2.239 3 5 3s5-1.5 5-3v-5"/><path d="M21 9v6"/></svg>
+          </div>
+          <h2>Intern Sign In</h2>
+          <p>Enter your Agriguardian intern credentials</p>
+        </div>
+
+        <form class="portal-login__form" id="internLoginForm" data-platform-role="intern">
+          <div class="form__group">
+            <label for="internEmail">Intern Email</label>
+            <input type="email" id="internEmail" name="email" placeholder="intern@agriguardian.com" required>
+          </div>
+          <div class="form__group">
+            <label for="internPassword">Password</label>
+            <input type="password" id="internPassword" name="password" placeholder="Enter your password" required>
+          </div>
+          <div class="portal-login__options">
+            <label class="portal-login__remember">
+              <input type="checkbox" name="remember"> Keep me signed in
+            </label>
+            <a href="#" class="portal-login__forgot">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full">Sign In to Intern Portal</button>
+          <p class="form__success">Login successful! Opening your task sheet...</p>
+        </form>
+
+        <div class="portal-login__switch">
+          <p>Agriguardian employee? <a href="employee-login.html">Sign in to Employee Portal</a></p>
+          <p>Client or farm owner? <a href="employer-login.html">Sign in to Employer Portal</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer footer--minimal">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Agriguardian Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

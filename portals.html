@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgriGuardian Enterprise Portals — Admin and Employee access.">
+  <title>Portals | Agriguardian Pvt Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="portal-page">
+
+  <header class="header header--portal scrolled" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo" data-website-home>
+        <img src="assets/logo.png" alt="Agriguardian Logo" class="nav__logo-img">
+        <span class="nav__logo-text">Agriguardian <small>Pvt Ltd</small></span>
+      </a>
+      <a href="index.html" class="nav__back" data-website-home>Back to Website</a>
+    </nav>
+  </header>
+
+  <main class="portals-hub">
+    <div class="container">
+      <div class="portals-hub__header">
+        <span class="section__tag">Enterprise Platform</span>
+        <h1 class="section__title">Access Your Portal</h1>
+        <div class="section__divider"></div>
+        <p class="section__desc">Sign in to your dedicated AgriGuardian workspace — tasks, attendance, analytics, and collaboration in one place.</p>
+      </div>
+
+      <div class="portals-hub__grid">
+        <a href="http://localhost:5173/login/admin" class="portals-hub__card portals-hub__card--active" data-platform-role="admin">
+          <div class="portals-hub__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Admin Portal</h3>
+          <p>Enterprise management, analytics, task assignment, and attendance oversight.</p>
+          <span class="portals-hub__link">Sign in &rarr;</span>
+        </a>
+
+        <a href="http://localhost:5173/login/employee" class="portals-hub__card portals-hub__card--active" data-platform-role="employee">
+          <div class="portals-hub__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3>Employee Portal</h3>
+          <p>Tasks, project progress, attendance, documents, and team collaboration.</p>
+          <span class="portals-hub__link">Sign in &rarr;</span>
+        </a>
+      </div>
+
+      <p class="portals-hub__note">Run <code>npm run dev</code> from the project root, then open <strong>localhost:5173</strong> for the website and enterprise platform.</p>
+    </div>
+  </main>
+
+  <footer class="footer footer--minimal">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Agriguardian Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

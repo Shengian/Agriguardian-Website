@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AgriGuardian Intern Dashboard — assigned tasks, attendance marking, and work submission.">
+  <title>Intern Dashboard | Agriguardian Pvt Ltd</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body class="portal-page">
+
+  <header class="header header--portal scrolled" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo" data-website-home>
+        <img src="assets/logo.png" alt="Agriguardian Logo" class="nav__logo-img">
+        <span class="nav__logo-text">Agriguardian <small>Pvt Ltd</small></span>
+      </a>
+      <a href="http://localhost:5173/login/intern" class="nav__back" data-platform-role="intern">Back to Intern Login</a>
+    </nav>
+  </header>
+
+  <main class="portal-login portal-login--dashboard">
+    <section class="portal-dashboard">
+      <div class="portal-dashboard__header">
+        <div>
+          <span class="portal-login__badge">Intern Task Sheet</span>
+          <h2>Welcome, Intern</h2>
+          <p>View assigned tasks, mark your daily attendance, and submit your documents or progress reports here.</p>
+        </div>
+        <a href="http://localhost:5173/login/intern" class="btn btn--outline-dark" data-platform-role="intern">Log Out</a>
+      </div>
+
+      <div class="portal-dashboard__grid">
+        <article class="portal-widget">
+          <h3>Assigned Tasks</h3>
+          <ul class="portal-task-list">
+            <li>
+              <strong>Landing page content revision</strong>
+              <span>Update company portal copy and verify final spelling, tone, and call-to-action wording.</span>
+            </li>
+            <li>
+              <strong>Portal QA checklist</strong>
+              <span>Test login pages, dropdown navigation, and mobile responsiveness across key sections.</span>
+            </li>
+            <li>
+              <strong>Weekly work summary</strong>
+              <span>Prepare a report of completed tasks, blockers, screenshots, and next actions for mentor review.</span>
+            </li>
+          </ul>
+        </article>
+
+        <article class="portal-widget">
+          <h3>Task Sheet Details</h3>
+          <div class="portal-metrics">
+            <div class="portal-metric">
+              <span class="portal-metric__label">Reporting Mentor</span>
+              <strong>Stiny A, CTO</strong>
+            </div>
+            <div class="portal-metric">
+              <span class="portal-metric__label">Daily Check-In</span>
+              <strong>09:30 AM</strong>
+            </div>
+            <div class="portal-metric">
+              <span class="portal-metric__label">Submission Deadline</span>
+              <strong>Friday, 6:00 PM</strong>
+            </div>
+            <div class="portal-metric">
+              <span class="portal-metric__label">Accepted Files</span>
+              <strong>PDF, DOCX, PPT, ZIP</strong>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="portal-dashboard__grid">
+        <article class="portal-widget">
+          <h3>Mark Attendance</h3>
+          <form class="portal-submit-form" id="internAttendanceForm">
+            <div class="portal-submit-form__grid">
+              <div class="form__group">
+                <label for="attendanceDate">Date</label>
+                <input type="date" id="attendanceDate" name="attendanceDate" required>
+              </div>
+              <div class="form__group">
+                <label for="attendanceStatus">Attendance Status</label>
+                <select id="attendanceStatus" name="attendanceStatus" required>
+                  <option value="" disabled selected>Select status</option>
+                  <option value="present">Present</option>
+                  <option value="work-from-home">Work From Home</option>
+                  <option value="half-day">Half Day</option>
+                  <option value="leave">On Leave</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="portal-submit-form__grid">
+              <div class="form__group">
+                <label for="checkInTime">Check-In Time</label>
+                <input type="time" id="checkInTime" name="checkInTime" required>
+              </div>
+              <div class="form__group">
+                <label for="checkOutTime">Check-Out Time</label>
+                <input type="time" id="checkOutTime" name="checkOutTime">
+              </div>
+            </div>
+
+            <div class="form__group">
+              <label for="attendanceNote">Attendance Note</label>
+              <textarea id="attendanceNote" name="attendanceNote" rows="4" placeholder="Add today's work focus, reason for leave, or any note for your mentor." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary">Mark Attendance</button>
+            <p class="form__success" id="internAttendanceSuccess">Attendance marked successfully for today.</p>
+          </form>
+        </article>
+
+        <article class="portal-widget">
+          <h3>Recent Attendance</h3>
+          <div class="portal-attendance-list">
+            <div class="portal-attendance-item">
+              <strong>Monday</strong>
+              <span>Present | 09:28 AM - 05:55 PM</span>
+            </div>
+            <div class="portal-attendance-item">
+              <strong>Tuesday</strong>
+              <span>Present | 09:31 AM - 06:10 PM</span>
+            </div>
+            <div class="portal-attendance-item">
+              <strong>Wednesday</strong>
+              <span>Work From Home | 09:35 AM - 05:40 PM</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="portal-widget portal-widget--full">
+        <h3>Submit Work Details</h3>
+        <form class="portal-submit-form" id="internWorkForm">
+          <div class="portal-submit-form__grid">
+            <div class="form__group">
+              <label for="taskTitle">Task Title</label>
+              <input type="text" id="taskTitle" name="taskTitle" placeholder="Enter the assigned task title" required>
+            </div>
+            <div class="form__group">
+              <label for="taskStatus">Current Status</label>
+              <select id="taskStatus" name="taskStatus" required>
+                <option value="" disabled selected>Select status</option>
+                <option value="in-progress">In Progress</option>
+                <option value="submitted">Submitted for Review</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label for="taskSummary">Work Summary / Report</label>
+            <textarea id="taskSummary" name="taskSummary" rows="5" placeholder="Describe the work completed, changes made, blockers, and next steps." required></textarea>
+          </div>
+
+          <div class="portal-submit-form__grid">
+            <div class="form__group">
+              <label for="taskLink">Document or Drive Link</label>
+              <input type="url" id="taskLink" name="taskLink" placeholder="https://..." required>
+            </div>
+            <div class="form__group">
+              <label for="taskFile">Upload File</label>
+              <input type="file" id="taskFile" name="taskFile" accept=".pdf,.doc,.docx,.ppt,.pptx,.zip,.png,.jpg,.jpeg">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary">Submit Work Details</button>
+          <p class="form__success" id="internWorkSuccess">Submission received. Your mentor can now review the report and attachments.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer footer--minimal">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 Agriguardian Pvt Ltd. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/site-config.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
