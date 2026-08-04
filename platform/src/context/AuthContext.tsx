@@ -18,7 +18,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const token = localStorage.getItem('ag_token');
     if (token) {
-      authApi.me().then(setUser).catch(() => localStorage.removeItem('ag_token')).finally(() => setLoading(false));
+      const timeout = setTimeout(() => {
+        // If API doesn't respond within 5s, stop loading
+        localStorage.removeItem('ag_token');
+        setLoading(false);
+      }, 5000);
+      authApi.me()
+        .then(setUser)
+        .catch(() => localStorage.removeItem('ag_token'))
+        .finally(() => {
+          clearTimeout(timeout);
+          setLoading(false);
+        });
     } else {
       setLoading(false);
     }

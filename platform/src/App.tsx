@@ -43,13 +43,11 @@ function Protected({ children, roles }: { children: React.ReactNode; roles: stri
 
 export default function App() {
   const location = useLocation();
-  const { loading } = useAuth();
-  if (loading) return <PageLoader />;
 
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<WebsiteHomeRedirect />} />
+        <Route path="/" element={<Navigate to="/portals" replace />} />
         <Route path="/portals" element={<PortalsHub />} />
         <Route path="/login/:role" element={<LoginPage />} />
 
@@ -70,7 +68,7 @@ export default function App() {
         <Route path="/employee/documents" element={<Protected roles={['employee', 'admin']}><DocumentsPage role="employee" /></Protected>} />
         <Route path="/employee/profile" element={<Protected roles={['employee', 'admin']}><ProfilePage role="employee" /></Protected>} />
 
-        <Route path="*" element={<WebsiteHomeRedirect />} />
+        <Route path="*" element={<Navigate to="/portals" replace />} />
       </Routes>
     </AnimatePresence>
   );
