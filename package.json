@@ -7,7 +7,7 @@
     "dev:server": "npm run dev --prefix server",
     "dev:platform": "npm run dev --prefix platform",
     "dev:website": "npx --yes serve -l 8080 .",
-    "build": "npm run build --prefix platform",
+    "build": "node scripts/build-site.js",
     "start": "npm run start --prefix server"
   },
   "devDependencies": {

@@ -1,0 +1,23 @@
+[build]
+  command = "npm run build"
+  publish = "dist_site"
+
+[[redirects]]
+  from = "/login/*"
+  to = "/app.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/*"
+  to = "/app.html"
+  status = 200
+
+[[redirects]]
+  from = "/employee/*"
+  to = "/app.html"
+  status = 200
+
+[[redirects]]
+  from = "/portals"
+  to = "/app.html"
+  status = 200
