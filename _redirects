@@ -1,0 +1,4 @@
+/login/*     /app.html    200
+/admin/*     /app.html    200
+/employee/*  /app.html    200
+/portals     /app.html    200

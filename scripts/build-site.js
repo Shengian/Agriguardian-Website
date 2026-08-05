@@ -52,25 +52,28 @@ filesToCopy.forEach(item => {
   }
 });
 
-console.log('4. Copying React platform dist build into dist_site...');
+console.log('4. Copying React platform dist build into dist_site and root...');
 const platformDist = path.join(platformDir, 'dist');
 if (fs.existsSync(platformDist)) {
-  // Copy React assets into dist_site/assets
   const platformAssets = path.join(platformDist, 'assets');
   if (fs.existsSync(platformAssets)) {
+    // Copy React assets to dist_site/assets and root assets/
     copyRecursiveSync(platformAssets, path.join(distSiteDir, 'assets'));
+    copyRecursiveSync(platformAssets, path.join(rootDir, 'assets'));
   }
   
-  // Copy React platform index.html to app.html for Netlify SPA rewrite
+  // Copy React platform index.html to app.html in both dist_site and root
   fs.copyFileSync(path.join(platformDist, 'index.html'), path.join(distSiteDir, 'app.html'));
+  fs.copyFileSync(path.join(platformDist, 'index.html'), path.join(rootDir, 'app.html'));
 }
 
-console.log('5. Creating Netlify _redirects file...');
+console.log('5. Creating Netlify _redirects file in both dist_site and root...');
 const redirectsContent = `/login/*     /app.html    200
 /admin/*     /app.html    200
 /employee/*  /app.html    200
 /portals     /app.html    200
 `;
 fs.writeFileSync(path.join(distSiteDir, '_redirects'), redirectsContent, 'utf8');
+fs.writeFileSync(path.join(rootDir, '_redirects'), redirectsContent, 'utf8');
 
-console.log('✓ Build complete! Output folder: dist_site');
+console.log('✓ Build complete! Updated root and dist_site ready for Netlify');
