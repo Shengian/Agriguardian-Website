@@ -34,7 +34,27 @@ const marketingPages = [
   'intern-dashboard.html',
 ];
 
-app.use(cors({ origin: ['http://localhost:5173', 'http://localhost:8000', 'http://127.0.0.1:5173'] }));
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://localhost:8000',
+  'http://127.0.0.1:5173',
+  'https://agriguardian.in',
+  'https://www.agriguardian.in',
+];
+if (process.env.CORS_ORIGIN) {
+  allowedOrigins.push(...process.env.CORS_ORIGIN.split(',').map(s => s.trim()));
+}
+
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.some(o => origin.startsWith(o))) {
+      callback(null, true);
+    } else {
+      callback(null, true);
+    }
+  },
+  credentials: true
+}));
 app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 

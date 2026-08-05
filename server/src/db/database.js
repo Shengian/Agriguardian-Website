@@ -3,8 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const dbPath = path.join(__dirname, 'agriguardian.db');
+const dbPath = process.env.DATABASE_PATH || path.join(__dirname, 'agriguardian.db');
 
 const db = new Database(dbPath);
 db.pragma('journal_mode = WAL');
@@ -198,5 +197,15 @@ CREATE TABLE IF NOT EXISTS newsletter_subscribers (
 `;
 
 db.exec(schema);
+
+try {
+  const userCount = db.prepare("SELECT COUNT(*) as count FROM users").get();
+  if (!userCount || userCount.count === 0) {
+    console.log('Database empty. Seeding initial admin users...');
+    import('./seed.js').catch(err => console.error('Seed error:', err));
+  }
+} catch (e) {
+  console.error('Auto-seed check failed:', e);
+}
 
 export default db;
