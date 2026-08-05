@@ -6,10 +6,13 @@ const rootDir = path.resolve(__dirname, '..');
 const platformDir = path.join(rootDir, 'platform');
 const distSiteDir = path.join(rootDir, 'dist_site');
 
-console.log('1. Building platform React app...');
+console.log('1. Installing platform dependencies...');
+execSync('npm install --include=dev', { cwd: platformDir, stdio: 'inherit' });
+
+console.log('2. Building platform React app...');
 execSync('npm run build', { cwd: platformDir, stdio: 'inherit' });
 
-console.log('2. Preparing dist_site directory...');
+console.log('3. Preparing dist_site directory...');
 if (fs.existsSync(distSiteDir)) {
   fs.rmSync(distSiteDir, { recursive: true, force: true });
 }
@@ -31,7 +34,7 @@ function copyRecursiveSync(src, dest) {
   }
 }
 
-console.log('3. Copying website static files...');
+console.log('4. Copying website static files...');
 const filesToCopy = [
   'index.html',
   'portals.html',
@@ -52,7 +55,7 @@ filesToCopy.forEach(item => {
   }
 });
 
-console.log('4. Copying React platform dist build into dist_site and root...');
+console.log('5. Copying React platform dist build into dist_site and root...');
 const platformDist = path.join(platformDir, 'dist');
 if (fs.existsSync(platformDist)) {
   const platformAssets = path.join(platformDist, 'assets');
@@ -67,7 +70,7 @@ if (fs.existsSync(platformDist)) {
   fs.copyFileSync(path.join(platformDist, 'index.html'), path.join(rootDir, 'app.html'));
 }
 
-console.log('5. Creating Netlify _redirects file in both dist_site and root...');
+console.log('6. Creating Netlify _redirects file in both dist_site and root...');
 const redirectsContent = `/login/*     /app.html    200
 /admin/*     /app.html    200
 /employee/*  /app.html    200
