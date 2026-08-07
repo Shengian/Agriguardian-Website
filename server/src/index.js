@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import './db/database.js';
 
@@ -96,11 +97,23 @@ app.get('/index.html', (_req, res) => {
 });
 
 app.use(express.static(platformDist));
+app.use(express.static(websiteRoot));
+
 app.get('*', (req, res, next) => {
   if (req.path.startsWith('/api')) return next();
-  res.sendFile(path.join(platformDist, 'index.html'), err => {
-    if (err) next();
-  });
+
+  const platformIndex = path.join(platformDist, 'index.html');
+  const appHtml = path.join(websiteRoot, 'app.html');
+  const rootIndex = path.join(websiteRoot, 'index.html');
+
+  if (fs.existsSync(platformIndex)) {
+    return res.sendFile(platformIndex);
+  } else if (fs.existsSync(appHtml)) {
+    return res.sendFile(appHtml);
+  } else if (fs.existsSync(rootIndex)) {
+    return res.sendFile(rootIndex);
+  }
+  next();
 });
 
 app.listen(PORT, () => {

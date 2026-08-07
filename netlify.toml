@@ -3,6 +3,12 @@
   publish = "dist_site"
 
 [[redirects]]
+  from = "/api/*"
+  to = "https://agriguardian-backend-production.up.railway.app/api/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
   from = "/login/*"
   to = "/app.html"
   status = 200

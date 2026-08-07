@@ -71,7 +71,8 @@ if (fs.existsSync(platformDist)) {
 }
 
 console.log('6. Creating Netlify _redirects file in both dist_site and root...');
-const redirectsContent = `/login/*     /app.html    200
+const redirectsContent = `/api/*       https://agriguardian-backend-production.up.railway.app/api/:splat  200!
+/login/*     /app.html    200
 /admin/*     /app.html    200
 /employee/*  /app.html    200
 /portals     /app.html    200

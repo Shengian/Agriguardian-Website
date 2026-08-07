@@ -1,3 +1,4 @@
+/api/*       https://agriguardian-backend-production.up.railway.app/api/:splat  200!
 /login/*     /app.html    200
 /admin/*     /app.html    200
 /employee/*  /app.html    200
