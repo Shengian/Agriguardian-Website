@@ -1,6 +1,10 @@
 node_modules/
+**/node_modules/
 platform/node_modules/
+server/node_modules/
 dist/
 dist_site/
 platform/dist/
 .env
+*.db-wal
+*.db-shm
