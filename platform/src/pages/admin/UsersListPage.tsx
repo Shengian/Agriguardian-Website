@@ -124,7 +124,7 @@ export default function UsersListPage({ type }: { type: 'employee' | 'intern' })
                 <strong>{value as string || '—'}</strong>
               </div>
             ))}
-            {viewUser.bio && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: 8 }}>{viewUser.bio as string}</p>}
+            {Boolean(viewUser.bio) && <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginTop: 8 }}>{String(viewUser.bio)}</p>}
           </div>
         )}
       </Modal>

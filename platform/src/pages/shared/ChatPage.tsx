@@ -18,9 +18,9 @@ export default function ChatPage({ role }: { role: 'admin' | 'employee' }) {
   const links = role === 'admin' ? adminLinks : employeeLinks;
 
   useEffect(() => {
-    projectsApi.list().then(ps => {
-      setProjects(ps);
-      const pid = user?.project_id || ps[0]?.id;
+    projectsApi.list().then((ps: any) => {
+      setProjects(ps || []);
+      const pid = user?.project_id || ps?.[0]?.id;
       if (pid) setProjectId(pid);
     });
   }, [user]);
@@ -33,7 +33,7 @@ export default function ChatPage({ role }: { role: 'admin' | 'employee' }) {
 
   const loadMessages = () => {
     if (!projectId) return;
-    chatApi.list(`project_id=${projectId}`).then(setMessages).catch(() => {});
+    chatApi.list(`project_id=${projectId}`).then((res: any) => setMessages(res)).catch(() => {});
   };
 
   const send = async () => {
@@ -45,7 +45,7 @@ export default function ChatPage({ role }: { role: 'admin' | 'employee' }) {
     } catch { toast('Failed to send', 'error'); }
   };
 
-  const title = role === 'intern' ? 'Mentor Chat' : role === 'admin' ? 'Team Chat' : 'Messages';
+  const title = (role as string) === 'intern' ? 'Mentor Chat' : role === 'admin' ? 'Team Chat' : 'Messages';
 
   return (
     <DashboardLayout title={title} links={links}>

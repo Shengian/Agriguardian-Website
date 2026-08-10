@@ -6,7 +6,7 @@ function getToken() {
 
 export async function api<T>(path: string, options: RequestInit = {}): Promise<T> {
   const headers: Record<string, string> = {
-  ...(options.headers as Record<string, string>),
+    ...(options.headers as Record<string, string>),
   };
   if (!(options.body instanceof FormData)) {
     headers['Content-Type'] = 'application/json';
@@ -14,10 +14,25 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  const res = await fetch(`${API}${path}`, { ...options, headers });
+  let res: Response;
+  try {
+    res = await fetch(`${API}${path}`, { ...options, headers });
+  } catch (networkErr) {
+    throw new Error('Unable to connect to backend server. Please check your network connection or backend server.');
+  }
+
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(err.error || 'Request failed');
+    let errData: { error?: string; message?: string } | null = null;
+    try {
+      errData = await res.json();
+    } catch {
+      // Failed to parse JSON body
+    }
+    const errorMessage =
+      errData?.error ||
+      errData?.message ||
+      (res.statusText ? `HTTP ${res.status}: ${res.statusText}` : `Request failed with status ${res.status}`);
+    throw new Error(errorMessage);
   }
   return res.json();
 }
@@ -115,7 +130,7 @@ export const tasksApi = {
 
 export const attendanceApi = {
   list: () => api<{ id: string; date: string; status: string; check_in?: string; check_out?: string; note?: string; user_id?: string }[]>('/attendance'),
-  stats: () => api<{ present: number; late: number; absent: number; breakdown: Record<string, number> }>('/attendance/stats'),
+  stats: () => api<{ present: number; late: number; absent: number; total?: number; breakdown: Record<string, number> }>('/attendance/stats'),
   mark: (data: object) => api('/attendance/mark', { method: 'POST', body: JSON.stringify(data) }),
   overview: () => api<{ today: { status: string; count: number }[]; weekly: unknown[] }>('/attendance/overview'),
   override: (id: string, data: object) => api(`/attendance/${id}/override`, { method: 'PATCH', body: JSON.stringify(data) }),
@@ -142,6 +157,7 @@ export interface Notification {
   title: string;
   message: string;
   read: number;
+  link?: string;
   created_at: string;
 }
 

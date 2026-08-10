@@ -24,7 +24,7 @@ export default function AttendancePage({ role }: { role: 'admin' | 'employee' })
     attendanceApi.list().then(setRecords);
     attendanceApi.stats().then(setStats);
     if (role === 'admin') attendanceApi.overview().then(setOverview);
-    leavesApi.list().then(setLeaves).catch(() => {});
+    leavesApi.list().then((res: any) => setLeaves(res)).catch(() => {});
   };
 
   useEffect(() => { refresh(); }, [role]);
@@ -84,13 +84,14 @@ export default function AttendancePage({ role }: { role: 'admin' | 'employee' })
     } catch { toast('Export failed', 'error'); }
   };
 
-  const pieData = stats && stats.total > 0 ? [
-    { name: 'Present', value: stats.breakdown.present || 0 },
-    { name: 'Late', value: stats.breakdown.late || 0 },
-    { name: 'Absent', value: stats.breakdown.absent || 0 },
+  const totalCount = stats ? (((stats as any).total ?? 0) || (stats.present + stats.late + stats.absent)) : 0;
+  const pieData = stats && totalCount > 0 ? [
+    { name: 'Present', value: stats.breakdown?.present || 0 },
+    { name: 'Late', value: stats.breakdown?.late || 0 },
+    { name: 'Absent', value: stats.breakdown?.absent || 0 },
   ] : [];
 
-  const hasStats = stats && stats.total > 0;
+  const hasStats = stats && totalCount > 0;
   const pageTitle = role === 'employee' ? 'My Attendance' : 'Attendance';
 
   return (

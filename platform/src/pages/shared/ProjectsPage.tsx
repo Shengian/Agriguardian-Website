@@ -31,7 +31,7 @@ export default function ProjectsPage({ role }: { role: 'admin' | 'intern' }) {
   const { toast } = useToast();
   const links = role === 'admin' ? adminLinks : internLinks;
 
-  const load = () => projectsApi.list().then(setProjects);
+  const load = () => projectsApi.list().then((res: any) => setProjects(res));
   useEffect(() => {
     load();
     if (role === 'admin') usersApi.list().then(setUsers);

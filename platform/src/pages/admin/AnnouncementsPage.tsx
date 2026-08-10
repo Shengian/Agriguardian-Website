@@ -9,7 +9,7 @@ export default function AnnouncementsPage() {
   const [showModal, setShowModal] = useState(false);
   const { toast } = useToast();
 
-  useEffect(() => { announcementsApi.list().then(setItems); }, []);
+  useEffect(() => { announcementsApi.list().then((res: any) => setItems(res)); }, []);
 
   const handlePost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ export default function AnnouncementsPage() {
       await announcementsApi.create({ title: fd.get('title'), content: fd.get('content'), pinned: fd.get('pinned') === 'on' });
       toast('Announcement posted');
       setShowModal(false);
-      announcementsApi.list().then(setItems);
+      announcementsApi.list().then((res: any) => setItems(res));
     } catch { toast('Failed', 'error'); }
   };
 

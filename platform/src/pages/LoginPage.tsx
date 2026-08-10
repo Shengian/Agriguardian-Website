@@ -32,29 +32,26 @@ export default function LoginPage() {
     e.preventDefault();
     if (isDisabled) return;
     setLoading(true);
+    const cleanEmail = email.trim();
     try {
       let user;
       if (isSignup) {
-        // Implement signup API call since auth context might not have signup
         const res = await fetch('/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, email, password, role })
+          body: JSON.stringify({ name: name.trim(), email: cleanEmail, password, role })
         });
+        let data: any = null;
+        try { data = await res.json(); } catch { /* ignore non-JSON */ }
         if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || 'Signup failed');
+          throw new Error(data?.error || data?.message || `Signup failed (${res.status})`);
         }
-        const data = await res.json();
         user = data.user;
-        // Assume successful signup also logs them in, but we might need to update AuthContext state
-        // For now, we'll try to just call login or manually set the token
         localStorage.setItem('ag_token', data.token);
-        // Refresh page or we can just redirect if the AuthContext picks it up
         window.location.href = `/${role}`;
-        return; // Skip the rest of handleSubmit
+        return;
       } else {
-        user = await login(email, password);
+        user = await login(cleanEmail, password);
       }
       
       const routes: Record<string, string> = { admin: '/admin', employee: '/employee' };

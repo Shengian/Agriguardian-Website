@@ -26,7 +26,7 @@ export default function TasksPage({ role }: { role: 'admin' | 'employee' }) {
     load();
     if (role === 'admin') {
       usersApi.list().then(setUsers);
-      projectsApi.list().then(setProjects);
+      projectsApi.list().then((res: any) => setProjects(res));
       tasksApi.pendingSubmissions().then(setPendingSubs).catch(() => {});
     }
   }, [role]);

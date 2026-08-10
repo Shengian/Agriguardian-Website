@@ -22,7 +22,7 @@ export default function AdminDashboardPage() {
   useEffect(() => {
     dashboardApi.admin().then(setData).catch(() => toast('Failed to load dashboard', 'error'));
     usersApi.list().then(setUsers);
-    projectsApi.list().then(setProjects);
+    projectsApi.list().then((res: any) => setProjects(res));
   }, []);
 
   const handleAssignTask = async (e: React.FormEvent<HTMLFormElement>) => {

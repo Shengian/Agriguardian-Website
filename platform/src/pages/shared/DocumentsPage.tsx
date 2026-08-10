@@ -12,7 +12,7 @@ export default function DocumentsPage({ role }: { role: 'admin' | 'employee' }) 
   const { toast } = useToast();
   const links = role === 'admin' ? adminLinks : employeeLinks;
 
-  const load = () => documentsApi.list().then(setDocs).catch(() => {});
+  const load = () => documentsApi.list().then((res: any) => setDocs(res)).catch(() => {});
   useEffect(() => { load(); }, []);
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
