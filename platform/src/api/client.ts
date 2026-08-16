@@ -149,6 +149,7 @@ export const tasksApi = {
   list: () => api<Task[]>('/tasks'),
   create: (data: object) => api('/tasks', { method: 'POST', body: JSON.stringify(data) }),
   update: (id: string, data: object) => api(`/tasks/${id}`, { method: 'PATCH', body: JSON.stringify(data) }),
+  delete: (id: string) => api(`/tasks/${id}`, { method: 'DELETE' }),
   submit: (id: string, data: object) => api(`/tasks/${id}/submit`, { method: 'POST', body: JSON.stringify(data) }),
   review: (id: string, data: object) => api(`/tasks/${id}/review`, { method: 'PATCH', body: JSON.stringify(data) }),
   comments: (id: string) => api<{ id: string; content: string; user_name: string; created_at: string }[]>(`/tasks/${id}/comments`),

@@ -108,4 +108,15 @@ router.patch('/:id/review', authMiddleware, requireRole('admin'), (req, res) => 
   res.json({ success: true });
 });
 
+router.delete('/:id', authMiddleware, requireRole('admin'), (req, res) => {
+  const task = db.prepare('SELECT * FROM tasks WHERE id = ?').get(req.params.id);
+  if (!task) return res.status(404).json({ error: 'Not found' });
+
+  // Delete associated records first to avoid foreign key constraints
+  db.prepare('DELETE FROM task_comments WHERE task_id = ?').run(req.params.id);
+  db.prepare('DELETE FROM submissions WHERE task_id = ?').run(req.params.id);
+  db.prepare('DELETE FROM tasks WHERE id = ?').run(req.params.id);
+  res.json({ success: true });
+});
+
 export default router;

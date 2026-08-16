@@ -4,7 +4,7 @@ import { GlassCard, Modal } from '../../components/UI';
 import { tasksApi, Task, Submission, usersApi, projectsApi, User } from '../../api/client';
 import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
-import { Plus, MessageSquare, Eye } from 'lucide-react';
+import { Plus, MessageSquare, Eye, Trash2 } from 'lucide-react';
 
 export default function TasksPage({ role }: { role: 'admin' | 'employee' }) {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -71,6 +71,15 @@ export default function TasksPage({ role }: { role: 'admin' | 'employee' }) {
       setCreateModal(false);
       load();
     } catch { toast('Failed to create task', 'error'); }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!window.confirm('Are you sure you want to delete this task?')) return;
+    try {
+      await tasksApi.delete(id);
+      toast('Task deleted successfully');
+      load();
+    } catch { toast('Failed to delete task', 'error'); }
   };
 
   const handleReview = async (submissionId: string, status: string) => {
@@ -144,6 +153,11 @@ export default function TasksPage({ role }: { role: 'admin' | 'employee' }) {
                 {role === 'admin' && <td>{t.assignee_name || '—'}</td>}
                 <td style={{ display: 'flex', gap: 6 }}>
                   <button className="btn-ghost" style={{ fontSize: '0.8rem', padding: '6px 10px' }} onClick={() => openDetail(t)}><Eye size={14} /></button>
+                  {role === 'admin' && (
+                    <button className="btn-ghost" style={{ fontSize: '0.8rem', padding: '6px 10px', color: '#dc2626' }} onClick={() => handleDelete(t.id)}>
+                      <Trash2 size={14} />
+                    </button>
+                  )}
                   {role !== 'admin' && t.status !== 'completed' && t.status !== 'submitted' && (
                     <button className="btn-ghost" style={{ fontSize: '0.8rem', padding: '6px 10px' }} onClick={() => setSubmitModal(t)}>
                       <Plus size={14} />
