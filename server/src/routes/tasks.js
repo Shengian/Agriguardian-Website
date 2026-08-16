@@ -49,7 +49,7 @@ router.post('/', authMiddleware, requireRole('admin'), (req, res) => {
   const { title, description, priority, deadline, project_id, assignee_id, assignee_type, estimated_hours } = req.body;
   const id = uuid();
   db.prepare(`INSERT INTO tasks (id, title, description, priority, deadline, project_id, assignee_id, assignee_type, estimated_hours, created_by) VALUES (?,?,?,?,?,?,?,?,?,?)`)
-    .run(id, title, description, priority || 'medium', deadline, project_id, assignee_id, assignee_type, estimated_hours, req.user.id);
+    .run(id, title, description, priority || 'medium', deadline, project_id || null, assignee_id || null, assignee_type, estimated_hours || null, req.user.id);
 
   if (assignee_id) {
     db.prepare('INSERT INTO notifications (id, user_id, type, title, message, link) VALUES (?,?,?,?,?,?)')
