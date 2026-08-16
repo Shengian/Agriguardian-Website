@@ -14,28 +14,53 @@ export async function api<T>(path: string, options: RequestInit = {}): Promise<T
   const token = getToken();
   if (token) headers.Authorization = `Bearer ${token}`;
 
-  let res: Response;
-  try {
-    res = await fetch(`${API}${path}`, { ...options, headers });
-  } catch (networkErr) {
-    throw new Error('Unable to connect to backend server. Please check your network connection or backend server.');
-  }
+  const MAX_RETRIES = 2;
+  let lastError: Error | null = null;
 
-  if (!res.ok) {
-    let errData: { error?: string; message?: string } | null = null;
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    let res: Response;
     try {
-      errData = await res.json();
-    } catch {
-      // Failed to parse JSON body
+      res = await fetch(`${API}${path}`, { ...options, headers });
+    } catch (networkErr) {
+      lastError = new Error('Unable to connect to backend server. Please check your network connection or backend server.');
+      // Network error — retry after delay (backend may be waking up)
+      if (attempt < MAX_RETRIES) {
+        await new Promise(r => setTimeout(r, 1500));
+        continue;
+      }
+      throw lastError;
     }
-    const errorMessage =
-      errData?.error ||
-      errData?.message ||
-      (res.statusText ? `HTTP ${res.status}: ${res.statusText}` : `Request failed with status ${res.status}`);
-    throw new Error(errorMessage);
+
+    if (!res.ok) {
+      let errData: { error?: string; message?: string } | null = null;
+      try {
+        errData = await res.json();
+      } catch {
+        // Failed to parse JSON body — likely an infrastructure error, not the API
+      }
+
+      // If the response has a JSON error body, it's a real API error — don't retry
+      if (errData?.error || errData?.message) {
+        throw new Error(errData.error || errData.message);
+      }
+
+      // Non-JSON error responses (404/502/503) may be transient infrastructure errors
+      // (e.g. Railway container cold start). Retry after a brief delay.
+      if (attempt < MAX_RETRIES && [404, 502, 503].includes(res.status)) {
+        await new Promise(r => setTimeout(r, 1500));
+        continue;
+      }
+
+      const errorMessage = res.statusText
+        ? `HTTP ${res.status}: ${res.statusText}`
+        : `Request failed with status ${res.status}`;
+      throw new Error(errorMessage);
+    }
+    return res.json();
   }
-  return res.json();
+  throw lastError || new Error('Request failed');
 }
+
 
 export const authApi = {
   login: (email: string, password: string) =>
