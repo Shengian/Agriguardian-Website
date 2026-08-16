@@ -49,7 +49,29 @@ router.patch('/:id', authMiddleware, (req, res) => {
 
 router.delete('/:id', authMiddleware, requireRole('admin'), (req, res) => {
   if (req.params.id === req.user.id) return res.status(400).json({ error: 'Cannot delete yourself' });
-  db.prepare('DELETE FROM users WHERE id = ?').run(req.params.id);
+  const id = req.params.id;
+  
+  db.transaction(() => {
+    // Delete dependent records
+    db.prepare('DELETE FROM task_comments WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM submissions WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM attendance WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM notifications WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM documents WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM chat_messages WHERE sender_id = ? OR receiver_id = ?').run(id, id);
+    db.prepare('DELETE FROM leave_requests WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM user_settings WHERE user_id = ?').run(id);
+    db.prepare('DELETE FROM project_members WHERE user_id = ?').run(id);
+    
+    // For tasks/announcements, nullify instead of deleting to keep the data
+    db.prepare('UPDATE tasks SET assignee_id = NULL WHERE assignee_id = ?').run(id);
+    db.prepare('UPDATE tasks SET created_by = NULL WHERE created_by = ?').run(id);
+    db.prepare('UPDATE announcements SET created_by = NULL WHERE created_by = ?').run(id);
+    db.prepare('UPDATE users SET mentor_id = NULL WHERE mentor_id = ?').run(id);
+
+    db.prepare('DELETE FROM users WHERE id = ?').run(id);
+  })();
+  
   res.json({ success: true });
 });
 

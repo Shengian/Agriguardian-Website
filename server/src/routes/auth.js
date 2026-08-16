@@ -27,8 +27,8 @@ router.post('/login', (req, res) => {
 
 router.post('/signup', async (req, res) => {
   try {
-    const { name, email, password } = req.body || {};
-    const role = 'employee'; // Always employee — admin accounts are created by admin only
+    const { name, email, password, role: reqRole } = req.body || {};
+    const role = reqRole === 'intern' ? 'intern' : 'employee'; // Allow employee or intern, default to employee
     
     if (!name || !email || !password || typeof email !== 'string' || typeof password !== 'string') {
       return res.status(400).json({ error: 'Name, email, and password are required' });

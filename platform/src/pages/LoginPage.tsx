@@ -25,6 +25,7 @@ export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [signupRole, setSignupRole] = useState('employee');
   const [isSignup, setIsSignup] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -39,7 +40,7 @@ export default function LoginPage() {
         const res = await fetch('/api/auth/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: name.trim(), email: cleanEmail, password, role })
+          body: JSON.stringify({ name: name.trim(), email: cleanEmail, password, role: signupRole })
         });
         let data: any = null;
         try { data = await res.json(); } catch { /* ignore non-JSON */ }
@@ -48,7 +49,7 @@ export default function LoginPage() {
         }
         user = data.user;
         localStorage.setItem('ag_token', data.token);
-        window.location.href = `/${role}`;
+        window.location.href = `/${signupRole}`;
         return;
       } else {
         user = await login(cleanEmail, password);
@@ -93,10 +94,19 @@ export default function LoginPage() {
           ) : (
             <form onSubmit={handleSubmit}>
               {isSignup && (
-                <div className="form-group">
-                  <label>Full Name</label>
-                  <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="John Doe" required />
-                </div>
+                <>
+                  <div className="form-group">
+                    <label>Full Name</label>
+                    <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="John Doe" required />
+                  </div>
+                  <div className="form-group">
+                    <label>Role</label>
+                    <select value={signupRole} onChange={e => setSignupRole(e.target.value)} required>
+                      <option value="employee">Employee</option>
+                      <option value="intern">Intern</option>
+                    </select>
+                  </div>
+                </>
               )}
               <div className="form-group">
                 <label>Email</label>
