@@ -60,19 +60,33 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes); // Fallback in case frontend omits /api
 app.use('/api/users', userRoutes);
+app.use('/users', userRoutes);
 app.use('/api/tasks', taskRoutes);
+app.use('/tasks', taskRoutes);
 app.use('/api/projects', projectRoutes);
+app.use('/projects', projectRoutes);
 app.use('/api/attendance', attendanceRoutes);
+app.use('/attendance', attendanceRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/notifications', notificationRoutes);
 app.use('/api/announcements', announcementRoutes);
+app.use('/announcements', announcementRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/documents', documentRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/chat', chatRoutes);
 app.use('/api/leaves', leaveRoutes);
+app.use('/leaves', leaveRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/dashboard', dashboardRoutes);
 app.use('/api/settings', settingsRoutes);
+app.use('/settings', settingsRoutes);
 app.use('/api/calendar', calendarRoutes);
+app.use('/calendar', calendarRoutes);
 app.use('/api/website', websiteRoutes);
+app.use('/website', websiteRoutes);
 
 app.get('/api/health', (_, res) => res.json({ status: 'ok', platform: 'AgriGuardian Enterprise' }));
 
