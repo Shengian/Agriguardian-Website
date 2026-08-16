@@ -1,4 +1,8 @@
-const API = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '') || '/api';
+let VITE_API_URL = import.meta.env.VITE_API_URL || '';
+if (VITE_API_URL && !VITE_API_URL.startsWith('http')) {
+  VITE_API_URL = 'https://' + VITE_API_URL;
+}
+const API = VITE_API_URL.replace(/\/$/, '') || '/api';
 
 function getToken() {
   return localStorage.getItem('ag_token');
