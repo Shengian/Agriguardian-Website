@@ -8,3 +8,10 @@ platform/dist/
 .env
 *.db-wal
 *.db-shm
+
+# Build-generated SPA entry point (created by scripts/build-site.js)
+app.html
+
+# Vite-generated hashed bundles (differ between Windows/Linux builds)
+assets/index-*.js
+assets/index-*.css
